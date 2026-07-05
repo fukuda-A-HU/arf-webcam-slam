@@ -1,0 +1,32 @@
+{
+  "name": "com.fukuda.xr.webcam-slam",
+  "displayName": "WebCam SLAM XR Plugin",
+  "version": "0.1.0",
+  "unity": "6000.0",
+  "description": "AR Foundation XR provider that drives session/camera tracking from an ordinary webcam. Phase A provides camera background passthrough and a debug fly pose; monocular SLAM tracking is planned for a later phase.",
+  "keywords": [
+    "xr",
+    "ar",
+    "arfoundation",
+    "webcam",
+    "slam"
+  ],
+  "author": {
+    "name": "fukuda-A-HU"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "com.unity.xr.arfoundation": "6.0.6",
+    "com.unity.xr.arsubsystems": "5.0.2",
+    "com.unity.xr.management": "4.5.4",
+    "com.unity.inputsystem": "1.19.0",
+    "com.unity.xr.core-utils": "2.5.3"
+  },
+  "samples": [
+    {
+      "displayName": "Basic",
+      "description": "Minimal AR Foundation scene wired to the WebCam SLAM provider with a debug fly pose.",
+      "path": "Samples~/Basic"
+    }
+  ]
+}

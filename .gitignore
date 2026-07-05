@@ -1,0 +1,15 @@
+# Unity
+UnityProject/Library/
+UnityProject/Temp/
+UnityProject/Logs/
+UnityProject/UserSettings/
+UnityProject/obj/
+*.csproj
+*.sln
+
+# Native (future)
+native/build/
+
+# Batch-mode build/test logs and results (regenerated during verification)
+*.log
+test-results*.xml

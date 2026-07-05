@@ -1,0 +1,18 @@
+# Normalize line endings across Windows/macOS so .meta and source diffs stay stable.
+* text=auto eol=lf
+
+# Binary assets (never normalize)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.dll binary
+*.dylib binary
+*.so binary
+*.a binary
+*.lib binary
+*.fbow binary
+
+# Unity YAML assets: keep as text (LF) so they remain mergeable; mark as generated for diffs.
+*.unity linguist-generated
+*.asset linguist-generated

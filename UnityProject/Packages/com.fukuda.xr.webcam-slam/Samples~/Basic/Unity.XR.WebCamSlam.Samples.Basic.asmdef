@@ -1,0 +1,20 @@
+{
+    "name": "Unity.XR.WebCamSlam.Samples.Basic",
+    "rootNamespace": "",
+    "references": [
+        "Unity.XR.WebCamSlam",
+        "Unity.XR.ARFoundation",
+        "Unity.XR.ARSubsystems",
+        "Unity.XR.CoreUtils",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

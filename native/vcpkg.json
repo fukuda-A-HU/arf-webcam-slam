@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "webcam-slam-native",
+  "version": "0.1.0",
+  "description": "Native dependencies for the WebCam SLAM AR Foundation plugin (stella_vslam backend).",
+  "homepage": "https://github.com/fukuda-A-HU/arf-webcam-slam",
+  "builtin-baseline": "09c52f8484204ce1ac70ff805741471d8bb81e9e",
+  "dependencies": [
+    "eigen3",
+    "g2o",
+    "opencv4",
+    "spdlog",
+    "sqlite3",
+    "yaml-cpp"
+  ]
+}

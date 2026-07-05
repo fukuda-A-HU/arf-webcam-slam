@@ -1,0 +1,24 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2a6a08c..4d55692 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -61,8 +61,9 @@ endif()
+ # Note: add_compile_options() accepts only "simple" generator-expressions :-(
+ if(MSVC)
+     # C4251: DLL export, C4244: floating->integer, C4305: double->float, C4267: size_t->any, C4127: constant condition
+-    add_compile_options(/W4 $<$<CONFIG:Debug>:/MTd>;$<$<CONFIG:Release>:/MT> /source-charset:utf-8 /execution-charset:utf-8 /wd4251 /wd4244 /wd4305 /wd4267 /wd4127 /bigobj)
++    add_compile_options(/W4 /utf-8 /wd4251 /wd4244 /wd4305 /wd4267 /wd4127 /bigobj)
+     add_compile_options("$<$<CONFIG:Debug>:/Zo>;$<$<CONFIG:Release>:/O2>;$<$<CONFIG:None>:/O2>")
++    add_compile_definitions(_USE_MATH_DEFINES NOMINMAX)
+     add_link_options(/NODEFAULTLIB:library)
+ else()
+     add_compile_options(-Wall -Wextra)
+@@ -94,7 +95,7 @@ if(NOT TARGET OpenMP::OpenMP_CXX)
+ endif()
+ 
+ # Eigen
+-find_package(Eigen3 3.3 REQUIRED)
++find_package(Eigen3 CONFIG REQUIRED)
+ 
+ # yaml-cpp
+ find_package(yaml-cpp REQUIRED)

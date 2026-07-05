@@ -80,14 +80,64 @@ namespace UnityEngine.XR.WebCamSlam.Subsystems
                 return;
             }
 
+            var devices = WebCamTexture.devices;
+            if (devices == null || devices.Length == 0)
+            {
+                Debug.LogWarning("WebCam SLAM: no webcam devices found. Camera background will be unavailable.");
+                return;
+            }
+
             m_BlitMaterial = new Material(shader) { hideFlags = HideFlags.HideAndDontSave };
 
-            var deviceName = string.IsNullOrEmpty(settings.preferredDeviceName) ? null : settings.preferredDeviceName;
-            m_WebCamTexture = deviceName != null
-                ? new WebCamTexture(deviceName, settings.requestedWidth, settings.requestedHeight, settings.requestedFps)
-                : new WebCamTexture(settings.requestedWidth, settings.requestedHeight, settings.requestedFps);
+            var deviceIndex = 0;
+            if (!string.IsNullOrEmpty(settings.preferredDeviceName))
+            {
+                deviceIndex = Array.FindIndex(devices, d => d.name == settings.preferredDeviceName);
+                if (deviceIndex < 0)
+                {
+                    Debug.LogWarning($"WebCam SLAM: preferred device '{settings.preferredDeviceName}' not found. " +
+                        $"Falling back to '{devices[0].name}'.");
+                    deviceIndex = 0;
+                }
+            }
 
+            var device = devices[deviceIndex];
+            m_WebCamTexture = CreateWebCamTexture(device, settings);
             m_WebCamTexture.Play();
+        }
+
+        /// <summary>
+        /// Creates a <see cref="WebCamTexture"/> for <paramref name="device"/>, honoring the settings'
+        /// requested resolution only if the device actually reports it as supported. Devices that don't
+        /// expose <see cref="WebCamDevice.availableResolutions"/> (common for virtual cameras such as
+        /// OBS Virtual Camera or SpoutCam) are opened with the device's own default resolution instead,
+        /// since forcing an unsupported size makes Unity fail to find a supported resolution and never
+        /// deliver a frame.
+        /// </summary>
+        static WebCamTexture CreateWebCamTexture(WebCamDevice device, WebCamSlamSettings settings)
+        {
+            var availableResolutions = device.availableResolutions;
+            if (availableResolutions == null || availableResolutions.Length == 0)
+                return new WebCamTexture(device.name);
+
+            var bestIndex = 0;
+            var bestAreaDelta = long.MaxValue;
+            for (var i = 0; i < availableResolutions.Length; i++)
+            {
+                var resolution = availableResolutions[i];
+                var widthDelta = (long)resolution.width - settings.requestedWidth;
+                var heightDelta = (long)resolution.height - settings.requestedHeight;
+                var areaDelta = Math.Abs(widthDelta * resolution.height) + Math.Abs(heightDelta * resolution.width);
+                if (areaDelta < bestAreaDelta)
+                {
+                    bestAreaDelta = areaDelta;
+                    bestIndex = i;
+                }
+            }
+
+            var chosen = availableResolutions[bestIndex];
+            var fps = (int)Math.Round(chosen.refreshRateRatio.value);
+            return new WebCamTexture(device.name, chosen.width, chosen.height, fps);
         }
 
         void Update()

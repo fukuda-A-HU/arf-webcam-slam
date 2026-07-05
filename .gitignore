@@ -13,3 +13,9 @@ native/build/
 # Batch-mode build/test logs and results (regenerated during verification)
 *.log
 test-results*.xml
+
+# Editor-local package manager UI state (regenerated per machine)
+UnityProject/ProjectSettings/PackageManagerSettings.asset
+
+# uloop / Unity CLI Loop local state (dev-only verification tooling)
+UnityProject/.uloop/

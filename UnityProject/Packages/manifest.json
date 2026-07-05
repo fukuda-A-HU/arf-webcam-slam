@@ -2,7 +2,6 @@
   "dependencies": {
     "com.fukuda.xr.webcam-slam": "file:../Packages/com.fukuda.xr.webcam-slam",
     "com.unity.xr.arfoundation": "6.0.6",
-    "com.unity.xr.arsubsystems": "5.0.2",
     "com.unity.xr.management": "4.5.4",
     "com.unity.inputsystem": "1.19.0",
     "com.unity.xr.core-utils": "2.5.3",
